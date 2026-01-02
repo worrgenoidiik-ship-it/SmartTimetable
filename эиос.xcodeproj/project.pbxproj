@@ -11,6 +11,7 @@
 		CB9A1C682EF9D6D7001F4608 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9A1C672EF9D6D7001F4608 /* WidgetKit.framework */; };
 		CB9A1C6A2EF9D6D7001F4608 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9A1C692EF9D6D7001F4608 /* SwiftUI.framework */; };
 		CB9A1C792EF9D6DA001F4608 /* SmartUlSUWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CB9A1C662EF9D6D7001F4608 /* SmartUlSUWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CB9A1C952EFD8E85001F4608 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9A1C932EFD8C5F001F4608 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		CB9A1C662EF9D6D7001F4608 /* SmartUlSUWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SmartUlSUWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9A1C672EF9D6D7001F4608 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CB9A1C692EF9D6D7001F4608 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		CB9A1C932EFD8C5F001F4608 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -134,6 +136,7 @@
 		CB08F9B82EF5DD2E00040071 = {
 			isa = PBXGroup;
 			children = (
+				CB9A1C932EFD8C5F001F4608 /* NetworkManager.swift */,
 				CB08F9C32EF5DD2E00040071 /* эиос */,
 				CB08F9D12EF5DD3100040071 /* эиосTests */,
 				CB08F9DB2EF5DD3100040071 /* эиосUITests */,
@@ -346,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9A1C952EFD8E85001F4608 /* NetworkManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +526,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = SmartUlSU;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Для безопасного входа в приложение.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешите доступ к фото, чтобы уприкрепить скриншот.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -532,7 +537,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.antonborisov.smartulsu.app2025;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -557,6 +562,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = SmartUlSU;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Для безопасного входа в приложение.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешите доступ к фото, чтобы уприкрепить скриншот.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -567,7 +573,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.antonborisov.smartulsu.app2025;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
