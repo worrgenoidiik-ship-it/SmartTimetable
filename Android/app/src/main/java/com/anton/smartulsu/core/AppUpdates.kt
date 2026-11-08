@@ -48,6 +48,16 @@ object AppUpdates {
         AppRelease(version, page, apk, item.text("body").orEmpty().take(600))
     }
 
+    /** «Позже» postpones a version for this long; «Пропустить» hides it until a newer one. */
+    const val SNOOZE_MILLIS = 3L * 24 * 3_600_000
+
+    /** Whether the automatic dialog should offer [latest] now. Manual checks ignore this. */
+    fun shouldPrompt(latest: String, current: String, skipped: String?, snoozedVersion: String?,
+                     snoozedUntil: Long, now: Long): Boolean {
+        if (!isNewer(latest, current) || latest == skipped) return false
+        return !(latest == snoozedVersion && now < snoozedUntil)
+    }
+
     /** True when [candidate] is a later version than [current] ("2.0.10" > "2.0.9"). */
     fun isNewer(candidate: String, current: String): Boolean = compare(candidate, current) > 0
 

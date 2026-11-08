@@ -85,6 +85,7 @@ final class AppNotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
     func removeScheduleNotifications() {
         revision += 1
+        deadlineRevision += 1 // an unfinished deadline task of the old account must not add anything now
         let token = revision
         Task {
             let center = UNUserNotificationCenter.current()
@@ -101,14 +102,21 @@ final class AppNotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
     /// Reminders 24 h and 3 h before each known deadline. Only events whose exact time
     /// the site exposes are scheduled; the permission prompt is never shown from here.
+    /// Same protection as lesson reminders: every call (and logout) bumps the revision, and a task
+    /// that finds a newer revision stops adding and removes what it has just added.
+    private var deadlineRevision = 0
+
     func scheduleDeadlineReminders(_ items: [DeadlineItem]) {
         let enabled = Self.isEnabled(Self.deadlineRemindersKey)
+        deadlineRevision += 1
+        let token = deadlineRevision
         Task {
             let center = UNUserNotificationCenter.current()
             center.delegate = self
             let pending = await center.pendingNotificationRequests()
+            guard token == deadlineRevision else { return }
             center.removePendingNotificationRequests(withIdentifiers: pending.map(\.identifier).filter { $0.hasPrefix(deadlinePrefix) })
-            guard enabled, await center.notificationSettings().authorizationStatus == .authorized else { return }
+            guard enabled, await center.notificationSettings().authorizationStatus == .authorized, token == deadlineRevision else { return }
             let now = Date()
             var requests: [(Date, UNNotificationRequest)] = []
             for item in items {
@@ -128,7 +136,14 @@ final class AppNotificationManager: NSObject, UNUserNotificationCenterDelegate {
                 }
             }
             // iOS keeps 64 pending requests: 48 for lessons, 12 for the nearest deadlines.
-            for (_, request) in requests.sorted(by: { $0.0 < $1.0 }).prefix(12) { try? await center.add(request) }
+            for (_, request) in requests.sorted(by: { $0.0 < $1.0 }).prefix(12) {
+                guard token == deadlineRevision else { return }
+                try? await center.add(request)
+                if token != deadlineRevision {
+                    center.removePendingNotificationRequests(withIdentifiers: [request.identifier])
+                    return
+                }
+            }
         }
     }
 

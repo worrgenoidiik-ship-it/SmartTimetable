@@ -1323,7 +1323,8 @@ private fun AppUpdatePrompt(locked: Boolean) {
         if (now - prefs.getLong("lastCheck", 0) < 12 * 3_600_000L) return@LaunchedEffect
         prefs.edit().putLong("lastCheck", now).apply()
         val latest = AppUpdates.fetchLatest() ?: return@LaunchedEffect
-        if (AppUpdates.isNewer(latest.version, appVersion(context)) && prefs.getString("dismissed", null) != latest.version)
+        if (AppUpdates.shouldPrompt(latest.version, appVersion(context), prefs.getString("skipped", null),
+                prefs.getString("snoozedVersion", null), prefs.getLong("snoozedUntil", 0), System.currentTimeMillis()))
             release = latest
     }
     val update = release
@@ -1341,11 +1342,19 @@ private fun AppUpdatePrompt(locked: Boolean) {
                 TextButton(onClick = { openLink(context, update.apkUrl ?: update.pageUrl); release = null }) { Text("Скачать") }
             },
             dismissButton = {
-                TextButton(onClick = {
-                    context.getSharedPreferences("app_updates", Context.MODE_PRIVATE).edit()
-                        .putString("dismissed", update.version).apply()
-                    release = null
-                }) { Text("Позже") }
+                val prefs = context.getSharedPreferences("app_updates", Context.MODE_PRIVATE)
+                Row {
+                    TextButton(onClick = {
+                        prefs.edit().putString("skipped", update.version).apply()
+                        release = null
+                    }) { Text("Пропустить") }
+                    TextButton(onClick = {
+                        // Asks again in three days; the manual check in Settings works any time.
+                        prefs.edit().putString("snoozedVersion", update.version)
+                            .putLong("snoozedUntil", System.currentTimeMillis() + AppUpdates.SNOOZE_MILLIS).apply()
+                        release = null
+                    }) { Text("Позже") }
+                }
             },
         )
 }

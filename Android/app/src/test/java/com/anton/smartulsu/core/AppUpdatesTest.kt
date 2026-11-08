@@ -43,4 +43,20 @@ class AppUpdatesTest {
         assertFalse(AppUpdates.isNewer("2.0", "2.0.0"))
         assertFalse(AppUpdates.isNewer("2.0.1", "2.0.2"))
     }
+
+    @Test fun laterAsksAgainAfterThreeDaysAndSkipHidesOnlyThatVersion() {
+        val now = 1_800_000_000_000L
+        assertTrue(AppUpdates.shouldPrompt("2.0.4", "2.0.3", null, null, 0, now))
+        // «Позже»: silent for three days, then asks again
+        val until = now + AppUpdates.SNOOZE_MILLIS
+        assertFalse(AppUpdates.shouldPrompt("2.0.4", "2.0.3", null, "2.0.4", until, now + 1))
+        assertTrue(AppUpdates.shouldPrompt("2.0.4", "2.0.3", null, "2.0.4", until, until))
+        // a newer version is offered at once even during the pause
+        assertTrue(AppUpdates.shouldPrompt("2.0.5", "2.0.3", null, "2.0.4", until, now + 1))
+        // «Пропустить»: never for that version, but yes for the next one
+        assertFalse(AppUpdates.shouldPrompt("2.0.4", "2.0.3", "2.0.4", null, 0, now))
+        assertTrue(AppUpdates.shouldPrompt("2.0.5", "2.0.3", "2.0.4", null, 0, now))
+        // never an older or equal version
+        assertFalse(AppUpdates.shouldPrompt("2.0.3", "2.0.3", null, null, 0, now))
+    }
 }
