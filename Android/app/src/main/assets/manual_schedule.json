@@ -9,7 +9,7 @@
       "number": 2,
       "subject": "Элективные курсы по физической культуре и спорту",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -18,7 +18,7 @@
       "number": 3,
       "subject": "Основы научных исследований",
       "type": "Лекция",
-      "teacher": "Ершова Нина Остаповна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -27,7 +27,7 @@
       "number": 4,
       "subject": "Основы научных исследований",
       "type": "Семинар",
-      "teacher": "Карпов Аркадий Антонович",
+      "teacher": "",
       "place": "3/217",
       "requiresConfirmation": false
     },
@@ -36,7 +36,7 @@
       "number": 5,
       "subject": "Философия",
       "type": "Семинар",
-      "teacher": "Воронов Виктор Андреевич",
+      "teacher": "",
       "place": "2/20а",
       "requiresConfirmation": false
     },
@@ -45,7 +45,7 @@
       "number": 6,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -54,7 +54,7 @@
       "number": 7,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -63,7 +63,7 @@
       "number": 1,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -72,7 +72,7 @@
       "number": 2,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -126,7 +126,7 @@
       "number": 4,
       "subject": "Дифференциальные уравнения",
       "type": "Лекция",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -135,7 +135,7 @@
       "number": 5,
       "subject": "Английский язык",
       "type": "",
-      "teacher": "Морозова Инна Руслановна",
+      "teacher": "",
       "place": "337",
       "requiresConfirmation": false
     },
@@ -144,7 +144,7 @@
       "number": 1,
       "subject": "Инвестируй правильно!",
       "type": "Университетский курс",
-      "teacher": "Абрамова Юлиана Вадимовна",
+      "teacher": "",
       "place": "303 · ул. Пушкинская, 4а",
       "requiresConfirmation": false
     },
@@ -153,7 +153,7 @@
       "number": 2,
       "subject": "Инвестируй правильно!",
       "type": "Университетский курс",
-      "teacher": "Абрамова Юлиана Вадимовна",
+      "teacher": "",
       "place": "303 · ул. Пушкинская, 4а",
       "requiresConfirmation": false
     },
@@ -162,7 +162,7 @@
       "number": 3,
       "subject": "Информатизация общества",
       "type": "Лабораторная",
-      "teacher": "Беляева Олеся Львовна",
+      "teacher": "",
       "place": "3/111",
       "requiresConfirmation": false
     },
@@ -171,7 +171,7 @@
       "number": 1,
       "subject": "Элективные курсы по физической культуре и спорту",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -180,7 +180,7 @@
       "number": 3,
       "subject": "Инновационная экономика и технологическое предпринимательство",
       "type": "Семинар",
-      "teacher": "Тихонова Софья Юлиановна",
+      "teacher": "",
       "place": "2/26",
       "requiresConfirmation": false
     },
@@ -189,7 +189,7 @@
       "number": 4,
       "subject": "Базы данных",
       "type": "Лабораторная",
-      "teacher": "Комарова Юлиана Егоровна",
+      "teacher": "",
       "place": "503",
       "requiresConfirmation": false
     },
@@ -198,7 +198,7 @@
       "number": 6,
       "subject": "Философия",
       "type": "Лекция",
-      "teacher": "Воронов Виктор Андреевич",
+      "teacher": "",
       "place": "Онлайн",
       "requiresConfirmation": false
     },
@@ -207,7 +207,7 @@
       "number": 7,
       "subject": "Психология и педагогика",
       "type": "Лекция",
-      "teacher": "Ж. Н. Донилова",
+      "teacher": "",
       "place": "Онлайн",
       "requiresConfirmation": false
     },
@@ -216,7 +216,7 @@
       "number": 8,
       "subject": "Инновационная экономика и технологическое предпринимательство",
       "type": "Лекция",
-      "teacher": "Тихонова Софья Юлиановна",
+      "teacher": "",
       "place": "Онлайн",
       "requiresConfirmation": false
     }
@@ -227,7 +227,7 @@
       "number": 2,
       "subject": "Физкультура",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -236,7 +236,7 @@
       "number": 3,
       "subject": "Базы данных",
       "type": "Лекция",
-      "teacher": "Кудрявцева Софья Владимировна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -245,7 +245,7 @@
       "number": 4,
       "subject": "Основы военной подготовки",
       "type": "Семинар",
-      "teacher": "Медведев Остап Вадимович",
+      "teacher": "",
       "place": "5/11",
       "requiresConfirmation": false
     },
@@ -263,7 +263,7 @@
       "number": 6,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -272,7 +272,7 @@
       "number": 7,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -281,7 +281,7 @@
       "number": 1,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -290,7 +290,7 @@
       "number": 2,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -344,7 +344,7 @@
       "number": 4,
       "subject": "Дифференциальные уравнения",
       "type": "Лекция",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -353,7 +353,7 @@
       "number": 2,
       "subject": "Психологическая защита",
       "type": "Университетский курс",
-      "teacher": "Гончаренко Нина Глебовна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -362,7 +362,7 @@
       "number": 3,
       "subject": "Электроника и схемотехника телекоммуникационных устройств",
       "type": "Лекция",
-      "teacher": "Лебедев Остап Юлианович",
+      "teacher": "",
       "place": "341",
       "requiresConfirmation": false
     },
@@ -371,7 +371,7 @@
       "number": 4,
       "subject": "Электроника и схемотехника телекоммуникационных устройств",
       "type": "Лабораторная",
-      "teacher": "Лебедев Остап Юлианович",
+      "teacher": "",
       "place": "341",
       "requiresConfirmation": false
     },
@@ -380,7 +380,7 @@
       "number": 5,
       "subject": "Информатизация общества",
       "type": "Семинар",
-      "teacher": "Беляева Олеся Львовна",
+      "teacher": "",
       "place": "2/24а",
       "requiresConfirmation": false
     },
@@ -389,7 +389,7 @@
       "number": 2,
       "subject": "Английский язык",
       "type": "",
-      "teacher": "Морозова Инна Руслановна",
+      "teacher": "",
       "place": "3/316",
       "requiresConfirmation": false
     },
@@ -398,7 +398,7 @@
       "number": 3,
       "subject": "Физкультура",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -407,7 +407,7 @@
       "number": 4,
       "subject": "Базы данных",
       "type": "Лабораторная",
-      "teacher": "Комарова Юлиана Егоровна",
+      "teacher": "",
       "place": "503",
       "requiresConfirmation": false
     },
@@ -425,7 +425,7 @@
       "number": 4,
       "subject": "Дифференциальные уравнения",
       "type": "Семинар",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "2/20а",
       "requiresConfirmation": false
     },
@@ -434,7 +434,7 @@
       "number": 5,
       "subject": "Дифференциальные уравнения",
       "type": "Семинар",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "2/20а",
       "requiresConfirmation": false
     }
@@ -445,7 +445,7 @@
       "number": 2,
       "subject": "Элективные курсы по физической культуре и спорту",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -454,7 +454,7 @@
       "number": 3,
       "subject": "Основы научных исследований",
       "type": "Лекция",
-      "teacher": "Ершова Нина Остаповна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -463,7 +463,7 @@
       "number": 4,
       "subject": "Основы научных исследований",
       "type": "Семинар",
-      "teacher": "Карпов Аркадий Антонович",
+      "teacher": "",
       "place": "3/217",
       "requiresConfirmation": false
     },
@@ -472,7 +472,7 @@
       "number": 5,
       "subject": "Философия",
       "type": "Семинар",
-      "teacher": "Воронов Виктор Андреевич",
+      "teacher": "",
       "place": "2/20а",
       "requiresConfirmation": false
     },
@@ -481,7 +481,7 @@
       "number": 6,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -490,7 +490,7 @@
       "number": 7,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -499,7 +499,7 @@
       "number": 1,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -508,7 +508,7 @@
       "number": 2,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -562,7 +562,7 @@
       "number": 4,
       "subject": "Дифференциальные уравнения",
       "type": "Лекция",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -571,7 +571,7 @@
       "number": 5,
       "subject": "Английский язык",
       "type": "",
-      "teacher": "Морозова Инна Руслановна",
+      "teacher": "",
       "place": "337",
       "requiresConfirmation": false
     },
@@ -580,7 +580,7 @@
       "number": 1,
       "subject": "Инвестируй правильно!",
       "type": "Университетский курс",
-      "teacher": "Абрамова Юлиана Вадимовна",
+      "teacher": "",
       "place": "303 · ул. Пушкинская, 4а",
       "requiresConfirmation": false
     },
@@ -589,7 +589,7 @@
       "number": 2,
       "subject": "Инвестируй правильно!",
       "type": "Университетский курс",
-      "teacher": "Абрамова Юлиана Вадимовна",
+      "teacher": "",
       "place": "303 · ул. Пушкинская, 4а",
       "requiresConfirmation": false
     },
@@ -598,7 +598,7 @@
       "number": 1,
       "subject": "Элективные курсы по физической культуре и спорту",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -607,7 +607,7 @@
       "number": 3,
       "subject": "Инновационная экономика и технологическое предпринимательство",
       "type": "Семинар",
-      "teacher": "Тихонова Софья Юлиановна",
+      "teacher": "",
       "place": "2/26",
       "requiresConfirmation": false
     },
@@ -616,7 +616,7 @@
       "number": 6,
       "subject": "Философия",
       "type": "Лекция",
-      "teacher": "Воронов Виктор Андреевич",
+      "teacher": "",
       "place": "Онлайн",
       "requiresConfirmation": false
     },
@@ -625,7 +625,7 @@
       "number": 7,
       "subject": "Психология и педагогика",
       "type": "Лекция",
-      "teacher": "Ж. Н. Донилова",
+      "teacher": "",
       "place": "Онлайн",
       "requiresConfirmation": false
     },
@@ -634,7 +634,7 @@
       "number": 8,
       "subject": "Инновационная экономика и технологическое предпринимательство",
       "type": "Лекция",
-      "teacher": "Тихонова Софья Юлиановна",
+      "teacher": "",
       "place": "Онлайн",
       "requiresConfirmation": false
     },
@@ -643,7 +643,7 @@
       "number": 3,
       "subject": "Базы данных",
       "type": "Лабораторная",
-      "teacher": "Комарова Юлиана Егоровна",
+      "teacher": "",
       "place": "3/118",
       "requiresConfirmation": false
     },
@@ -652,7 +652,7 @@
       "number": 4,
       "subject": "Информатизация общества",
       "type": "Лабораторная",
-      "teacher": "Беляева Олеся Львовна",
+      "teacher": "",
       "place": "3/111",
       "requiresConfirmation": false
     },
@@ -661,7 +661,7 @@
       "number": 5,
       "subject": "Психология и педагогика",
       "type": "Семинар",
-      "teacher": "Ж. Н. Донилова",
+      "teacher": "",
       "place": "3/16",
       "requiresConfirmation": false
     },
@@ -670,7 +670,7 @@
       "number": 2,
       "subject": "Русский язык как иностранный",
       "type": "",
-      "teacher": "А. В. Фёдорова",
+      "teacher": "",
       "place": "2/26",
       "requiresConfirmation": false
     },
@@ -679,7 +679,7 @@
       "number": 3,
       "subject": "Русский язык как иностранный",
       "type": "",
-      "teacher": "А. В. Фёдорова",
+      "teacher": "",
       "place": "2/26",
       "requiresConfirmation": false
     },
@@ -688,7 +688,7 @@
       "number": 4,
       "subject": "Русский язык как иностранный",
       "type": "",
-      "teacher": "А. В. Фёдорова",
+      "teacher": "",
       "place": "2/26",
       "requiresConfirmation": false
     }
@@ -699,7 +699,7 @@
       "number": 2,
       "subject": "Физкультура",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -708,7 +708,7 @@
       "number": 3,
       "subject": "Базы данных",
       "type": "Лекция",
-      "teacher": "Кудрявцева Софья Владимировна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -717,7 +717,7 @@
       "number": 4,
       "subject": "Основы военной подготовки",
       "type": "Семинар",
-      "teacher": "Медведев Остап Вадимович",
+      "teacher": "",
       "place": "5/11",
       "requiresConfirmation": false
     },
@@ -726,7 +726,7 @@
       "number": 6,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -735,7 +735,7 @@
       "number": 7,
       "subject": "Графический дизайн и дизайн визуальных коммуникаций",
       "type": "Университетский курс",
-      "teacher": "Голубев Артём Остапович",
+      "teacher": "",
       "place": "3/111 · корпус 3, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -744,7 +744,7 @@
       "number": 1,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -753,7 +753,7 @@
       "number": 2,
       "subject": "Изучение английского языка",
       "type": "Университетский курс",
-      "teacher": "Орлова Марина Владимировна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -807,7 +807,7 @@
       "number": 4,
       "subject": "Дифференциальные уравнения",
       "type": "Лекция",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "332",
       "requiresConfirmation": false
     },
@@ -816,7 +816,7 @@
       "number": 2,
       "subject": "Психологическая защита",
       "type": "Университетский курс",
-      "teacher": "Гончаренко Нина Глебовна",
+      "teacher": "",
       "place": "2/26 · корпус 2, наб. р. Свияги",
       "requiresConfirmation": false
     },
@@ -825,7 +825,7 @@
       "number": 3,
       "subject": "Электроника и схемотехника телекоммуникационных устройств",
       "type": "Лекция",
-      "teacher": "Лебедев Остап Юлианович",
+      "teacher": "",
       "place": "341",
       "requiresConfirmation": false
     },
@@ -834,7 +834,7 @@
       "number": 4,
       "subject": "Электроника и схемотехника телекоммуникационных устройств",
       "type": "Лабораторная",
-      "teacher": "Лебедев Остап Юлианович",
+      "teacher": "",
       "place": "341",
       "requiresConfirmation": false
     },
@@ -843,7 +843,7 @@
       "number": 5,
       "subject": "Информатизация общества",
       "type": "Семинар",
-      "teacher": "Беляева Олеся Львовна",
+      "teacher": "",
       "place": "2/24а",
       "requiresConfirmation": false
     },
@@ -852,7 +852,7 @@
       "number": 2,
       "subject": "Английский язык",
       "type": "",
-      "teacher": "Морозова Инна Руслановна",
+      "teacher": "",
       "place": "3/316",
       "requiresConfirmation": false
     },
@@ -861,7 +861,7 @@
       "number": 3,
       "subject": "Физкультура",
       "type": "Практическое",
-      "teacher": "Соколова Олеся Алексеевна",
+      "teacher": "",
       "place": "",
       "requiresConfirmation": false
     },
@@ -870,7 +870,7 @@
       "number": 4,
       "subject": "Базы данных",
       "type": "Лабораторная",
-      "teacher": "Комарова Юлиана Егоровна",
+      "teacher": "",
       "place": "503",
       "requiresConfirmation": false
     },
@@ -924,7 +924,7 @@
       "number": 2,
       "subject": "Основы военной подготовки",
       "type": "Лекция",
-      "teacher": "Медведев Остап Вадимович",
+      "teacher": "",
       "place": "Контур Толк · онлайн",
       "requiresConfirmation": false
     },
@@ -933,7 +933,7 @@
       "number": 6,
       "subject": "Дифференциальные уравнения",
       "type": "Семинар",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "2/20а",
       "requiresConfirmation": false
     },
@@ -942,7 +942,7 @@
       "number": 7,
       "subject": "Дифференциальные уравнения",
       "type": "Семинар",
-      "teacher": "Зайцева Олеся Денисовна",
+      "teacher": "",
       "place": "2/20а",
       "requiresConfirmation": false
     }
