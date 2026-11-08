@@ -52,6 +52,8 @@
 xcodebuild test -project эиос.xcodeproj -scheme SmartTable -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
+Тесты сервера-пингера: `cd Server/keeper && python3 -m unittest test_keeper`.
+
 Свой сервер-пингер: см. комментарии в [`Server/keeper/keeper.py`](Server/keeper/keeper.py) и [`Server/keeper/deploy.sh`](Server/keeper/deploy.sh).
 
 ## Конфиденциальность

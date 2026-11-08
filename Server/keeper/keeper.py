@@ -105,13 +105,24 @@ def request(url, cookies, body=None, content_type=None):
 
 
 def is_login(status, headers, html):
+    """True only when the portal clearly asks to sign in. A 5xx/4xx error page has no logout
+    link either, but it is a portal failure, not a logout: that is verdict() == None."""
     if status == 401:
         return True
     if 300 <= status < 400:
         location = (headers.get("Location") or "").lower()
         return "login" in location or "auth" in location or "sso" in location or not location.startswith(PORTAL)
+    if status != 200:
+        return False
     # A signed-in Moodle page always links to logout; a guest or login page does not.
     return bool(re.search(r"<body[^>]*\bnotloggedin\b", html)) or "login/logout.php" not in html
+
+
+def verdict(status, headers, html):
+    """True: the session works. False: the portal asks to sign in. None: cannot tell now."""
+    if is_login(status, headers, html):
+        return False
+    return True if status == 200 else None
 
 
 def time_remaining(cookies, html):
@@ -173,7 +184,9 @@ def check():
 
 def next_delay(alive):
     if not alive:
-        return RETRY_DELAY if (state.get("error") or "").startswith("нет связи") else None
+        return None  # the portal ended the session: wait for new cookies from the app
+    if state.get("error"):
+        return RETRY_DELAY  # network or portal failure: the session is probably fine, check again soon
     delay = random.uniform(MIN_DELAY, MAX_DELAY)
     timeout = state.get("timeout")
     if timeout:
@@ -293,29 +306,38 @@ class Handler(BaseHTTPRequestHandler):
                        for k, v in cookies.items())
         except (ValueError, KeyError, TypeError, AssertionError):
             return self.reply(400, {"error": "bad cookies"})
-        with lock:
-            if state.get("cookies") == cookies and state.get("alive"):
-                return self.reply(200, public_state())
-        # Check the new cookies BEFORE replacing anything: a stale copy from the phone must
-        # never push out a session that is still alive here.
-        try:
-            status, headers, html = request(PROBE, cookies)
-            accepted = status == 200 and not is_login(status, headers, html)
-        except OSError:
-            accepted = None  # portal unreachable: cannot tell
-        with lock:
-            current_alive = bool(state.get("cookies")) and state.get("alive")
-        if accepted is False and current_alive:
+        code, payload = accept_cookies(cookies)
+        self.reply(code, payload)
+
+
+def accept_cookies(cookies):
+    """PUT /session. New cookies replace the stored ones only when that cannot lose a working
+    session: they are checked first, and while the portal cannot be reached a live session
+    is kept (the app gets 503 and tries again later)."""
+    with lock:
+        if state.get("cookies") == cookies and state.get("alive"):
+            return 200, public_state()
+    try:
+        status, headers, html = request(PROBE, cookies)
+        accepted = verdict(status, headers, html)
+    except OSError:
+        accepted = None
+    with lock:
+        current_alive = bool(state.get("cookies")) and state.get("alive")
+    if current_alive and accepted is not True:
+        if accepted is False:
             log("new session rejected by the portal; keeping the live one")
-            return self.reply(200, public_state())
-        with lock:
-            state.clear()
-            state.update(cookies=cookies, saved_at=int(time.time()), alive=accepted is not False)
-            save_state()
-        log("new session received")
-        check()
-        wake.set()  # reschedule from now
-        self.reply(200, public_state())
+            return 200, public_state()
+        log("cannot verify the new session now; keeping the live one")
+        return 503, {"error": "ЭИОС сейчас недоступна, сессия на сервере не заменена. Приложение повторит позже."}
+    with lock:
+        state.clear()
+        state.update(cookies=cookies, saved_at=int(time.time()), alive=accepted is not False)
+        save_state()
+    log("new session received")
+    check()
+    wake.set()  # reschedule from now
+    return 200, public_state()
 
 
 class Server(ThreadingHTTPServer):
