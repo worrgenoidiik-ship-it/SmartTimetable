@@ -15,3 +15,19 @@ DerivedData/
 *.hmap
 *.ipa
 *.xcuserstate
+
+# Tools / server
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Сертификат и профиль подписи — никогда не в git
+signing/
+*.p12
+*.mobileprovision
+
+# Адрес своего сервера — только локально
+Server/host.txt
+Server/ssh_port.txt

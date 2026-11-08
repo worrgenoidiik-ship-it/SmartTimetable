@@ -2,7 +2,7 @@
 
 import XCTest
 
-final class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
+final class SmartTableUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -24,6 +24,28 @@ final class ___FILEBASENAMEASIDENTIFIER___: XCTestCase {
         app.launch()
 
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+    }
+
+    /// 2.0: the login keyboard has «Готово», so the code keyboard no longer hides «Подтвердить».
+    @MainActor
+    func testLoginKeyboardHasDoneButton() throws {
+        let app = XCUIApplication()
+        app.launch()
+        let login = app.textFields["login.username"]
+        if !login.waitForExistence(timeout: 8) {
+            app.tabBars.buttons["Настройки"].tap()
+            app.buttons["Войти в аккаунт"].tap()
+            XCTAssertTrue(app.buttons["login.savedData"].waitForExistence(timeout: 8))
+            XCTAssertTrue(login.waitForExistence(timeout: 8))
+        }
+        login.tap()
+        let done = app.toolbars.buttons["Готово"]
+        XCTAssertTrue(done.waitForExistence(timeout: 5))
+        let shot = XCTAttachment(screenshot: app.screenshot())
+        shot.lifetime = .keepAlways
+        add(shot)
+        done.tap()
+        XCTAssertFalse(app.keyboards.firstMatch.waitForExistence(timeout: 2))
     }
 
     @MainActor

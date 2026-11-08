@@ -1,0 +1,31 @@
+[Unit]
+Description=SmartTimetable keeper (keeps the ЭИОС session alive)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/smarttable-keeper/keeper.py
+Restart=always
+RestartSec=10
+# Runs as root only to read acme.sh's certificate in /root/cert; everything else is locked down.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/smarttable-keeper
+StateDirectory=smarttable-keeper
+StateDirectoryMode=0700
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

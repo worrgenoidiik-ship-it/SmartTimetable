@@ -1,0 +1,957 @@
+{
+  "group": "ИС-О-25/1",
+  "firstDay": "2026-09-21",
+  "lastDay": "2026-12-31",
+  "revisionDay": "2026-10-05",
+  "weekOne": [
+    {
+      "weekday": 1,
+      "number": 2,
+      "subject": "Элективные курсы по физической культуре и спорту",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 3,
+      "subject": "Основы научных исследований",
+      "type": "Лекция",
+      "teacher": "Ершова Нина Остаповна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 4,
+      "subject": "Основы научных исследований",
+      "type": "Семинар",
+      "teacher": "Карпов Аркадий Антонович",
+      "place": "3/217",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 5,
+      "subject": "Философия",
+      "type": "Семинар",
+      "teacher": "Воронов Виктор Андреевич",
+      "place": "2/20а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 6,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 7,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 1,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 2,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 3,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 4,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 5,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 6,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 7,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 4,
+      "subject": "Дифференциальные уравнения",
+      "type": "Лекция",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 5,
+      "subject": "Английский язык",
+      "type": "",
+      "teacher": "Морозова Инна Руслановна",
+      "place": "337",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 1,
+      "subject": "Инвестируй правильно!",
+      "type": "Университетский курс",
+      "teacher": "Абрамова Юлиана Вадимовна",
+      "place": "303 · ул. Пушкинская, 4а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 2,
+      "subject": "Инвестируй правильно!",
+      "type": "Университетский курс",
+      "teacher": "Абрамова Юлиана Вадимовна",
+      "place": "303 · ул. Пушкинская, 4а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 3,
+      "subject": "Информатизация общества",
+      "type": "Лабораторная",
+      "teacher": "Беляева Олеся Львовна",
+      "place": "3/111",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 1,
+      "subject": "Элективные курсы по физической культуре и спорту",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 3,
+      "subject": "Инновационная экономика и технологическое предпринимательство",
+      "type": "Семинар",
+      "teacher": "Тихонова Софья Юлиановна",
+      "place": "2/26",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 4,
+      "subject": "Базы данных",
+      "type": "Лабораторная",
+      "teacher": "Комарова Юлиана Егоровна",
+      "place": "503",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 6,
+      "subject": "Философия",
+      "type": "Лекция",
+      "teacher": "Воронов Виктор Андреевич",
+      "place": "Онлайн",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 7,
+      "subject": "Психология и педагогика",
+      "type": "Лекция",
+      "teacher": "Ж. Н. Донилова",
+      "place": "Онлайн",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 8,
+      "subject": "Инновационная экономика и технологическое предпринимательство",
+      "type": "Лекция",
+      "teacher": "Тихонова Софья Юлиановна",
+      "place": "Онлайн",
+      "requiresConfirmation": false
+    }
+  ],
+  "weekTwo": [
+    {
+      "weekday": 1,
+      "number": 2,
+      "subject": "Физкультура",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 3,
+      "subject": "Базы данных",
+      "type": "Лекция",
+      "teacher": "Кудрявцева Софья Владимировна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 4,
+      "subject": "Основы военной подготовки",
+      "type": "Семинар",
+      "teacher": "Медведев Остап Вадимович",
+      "place": "5/11",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 5,
+      "subject": "Психология и педагогика",
+      "type": "Семинар",
+      "teacher": "",
+      "place": "3/321",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 6,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 7,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 1,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 2,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 3,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 4,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 5,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 6,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 7,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 4,
+      "subject": "Дифференциальные уравнения",
+      "type": "Лекция",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 2,
+      "subject": "Психологическая защита",
+      "type": "Университетский курс",
+      "teacher": "Гончаренко Нина Глебовна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 3,
+      "subject": "Электроника и схемотехника телекоммуникационных устройств",
+      "type": "Лекция",
+      "teacher": "Лебедев Остап Юлианович",
+      "place": "341",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 4,
+      "subject": "Электроника и схемотехника телекоммуникационных устройств",
+      "type": "Лабораторная",
+      "teacher": "Лебедев Остап Юлианович",
+      "place": "341",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 5,
+      "subject": "Информатизация общества",
+      "type": "Семинар",
+      "teacher": "Беляева Олеся Львовна",
+      "place": "2/24а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 2,
+      "subject": "Английский язык",
+      "type": "",
+      "teacher": "Морозова Инна Руслановна",
+      "place": "3/316",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 3,
+      "subject": "Физкультура",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 4,
+      "subject": "Базы данных",
+      "type": "Лабораторная",
+      "teacher": "Комарова Юлиана Егоровна",
+      "place": "503",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 2,
+      "subject": "Основы военной подготовки",
+      "type": "Лекция",
+      "teacher": "",
+      "place": "Онлайн",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 4,
+      "subject": "Дифференциальные уравнения",
+      "type": "Семинар",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "2/20а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 5,
+      "subject": "Дифференциальные уравнения",
+      "type": "Семинар",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "2/20а",
+      "requiresConfirmation": false
+    }
+  ],
+  "revisedWeekOne": [
+    {
+      "weekday": 1,
+      "number": 2,
+      "subject": "Элективные курсы по физической культуре и спорту",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 3,
+      "subject": "Основы научных исследований",
+      "type": "Лекция",
+      "teacher": "Ершова Нина Остаповна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 4,
+      "subject": "Основы научных исследований",
+      "type": "Семинар",
+      "teacher": "Карпов Аркадий Антонович",
+      "place": "3/217",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 5,
+      "subject": "Философия",
+      "type": "Семинар",
+      "teacher": "Воронов Виктор Андреевич",
+      "place": "2/20а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 6,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 7,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 1,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 2,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 3,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 4,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 5,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 6,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 7,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 4,
+      "subject": "Дифференциальные уравнения",
+      "type": "Лекция",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 5,
+      "subject": "Английский язык",
+      "type": "",
+      "teacher": "Морозова Инна Руслановна",
+      "place": "337",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 1,
+      "subject": "Инвестируй правильно!",
+      "type": "Университетский курс",
+      "teacher": "Абрамова Юлиана Вадимовна",
+      "place": "303 · ул. Пушкинская, 4а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 2,
+      "subject": "Инвестируй правильно!",
+      "type": "Университетский курс",
+      "teacher": "Абрамова Юлиана Вадимовна",
+      "place": "303 · ул. Пушкинская, 4а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 1,
+      "subject": "Элективные курсы по физической культуре и спорту",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 3,
+      "subject": "Инновационная экономика и технологическое предпринимательство",
+      "type": "Семинар",
+      "teacher": "Тихонова Софья Юлиановна",
+      "place": "2/26",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 6,
+      "subject": "Философия",
+      "type": "Лекция",
+      "teacher": "Воронов Виктор Андреевич",
+      "place": "Онлайн",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 7,
+      "subject": "Психология и педагогика",
+      "type": "Лекция",
+      "teacher": "Ж. Н. Донилова",
+      "place": "Онлайн",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 8,
+      "subject": "Инновационная экономика и технологическое предпринимательство",
+      "type": "Лекция",
+      "teacher": "Тихонова Софья Юлиановна",
+      "place": "Онлайн",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 3,
+      "subject": "Базы данных",
+      "type": "Лабораторная",
+      "teacher": "Комарова Юлиана Егоровна",
+      "place": "3/118",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 4,
+      "subject": "Информатизация общества",
+      "type": "Лабораторная",
+      "teacher": "Беляева Олеся Львовна",
+      "place": "3/111",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 5,
+      "subject": "Психология и педагогика",
+      "type": "Семинар",
+      "teacher": "Ж. Н. Донилова",
+      "place": "3/16",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 2,
+      "subject": "Русский язык как иностранный",
+      "type": "",
+      "teacher": "А. В. Фёдорова",
+      "place": "2/26",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 3,
+      "subject": "Русский язык как иностранный",
+      "type": "",
+      "teacher": "А. В. Фёдорова",
+      "place": "2/26",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 4,
+      "subject": "Русский язык как иностранный",
+      "type": "",
+      "teacher": "А. В. Фёдорова",
+      "place": "2/26",
+      "requiresConfirmation": false
+    }
+  ],
+  "revisedWeekTwo": [
+    {
+      "weekday": 1,
+      "number": 2,
+      "subject": "Физкультура",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 3,
+      "subject": "Базы данных",
+      "type": "Лекция",
+      "teacher": "Кудрявцева Софья Владимировна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 4,
+      "subject": "Основы военной подготовки",
+      "type": "Семинар",
+      "teacher": "Медведев Остап Вадимович",
+      "place": "5/11",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 6,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 1,
+      "number": 7,
+      "subject": "Графический дизайн и дизайн визуальных коммуникаций",
+      "type": "Университетский курс",
+      "teacher": "Голубев Артём Остапович",
+      "place": "3/111 · корпус 3, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 1,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 2,
+      "subject": "Изучение английского языка",
+      "type": "Университетский курс",
+      "teacher": "Орлова Марина Владимировна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 3,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 4,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 5,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 6,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 2,
+      "number": 7,
+      "subject": "Ознакомительная практика",
+      "type": "Практика",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 4,
+      "subject": "Дифференциальные уравнения",
+      "type": "Лекция",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "332",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 2,
+      "subject": "Психологическая защита",
+      "type": "Университетский курс",
+      "teacher": "Гончаренко Нина Глебовна",
+      "place": "2/26 · корпус 2, наб. р. Свияги",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 3,
+      "subject": "Электроника и схемотехника телекоммуникационных устройств",
+      "type": "Лекция",
+      "teacher": "Лебедев Остап Юлианович",
+      "place": "341",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 4,
+      "subject": "Электроника и схемотехника телекоммуникационных устройств",
+      "type": "Лабораторная",
+      "teacher": "Лебедев Остап Юлианович",
+      "place": "341",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 5,
+      "subject": "Информатизация общества",
+      "type": "Семинар",
+      "teacher": "Беляева Олеся Львовна",
+      "place": "2/24а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 2,
+      "subject": "Английский язык",
+      "type": "",
+      "teacher": "Морозова Инна Руслановна",
+      "place": "3/316",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 3,
+      "subject": "Физкультура",
+      "type": "Практическое",
+      "teacher": "Соколова Олеся Алексеевна",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 4,
+      "subject": "Базы данных",
+      "type": "Лабораторная",
+      "teacher": "Комарова Юлиана Егоровна",
+      "place": "503",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 2,
+      "subject": "Проектный инженерный интенсив",
+      "type": "Интенсив",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 3,
+      "number": 3,
+      "subject": "Проектный инженерный интенсив",
+      "type": "Интенсив",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 4,
+      "number": 1,
+      "subject": "Университетский курс",
+      "type": "Университетский курс",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": true
+    },
+    {
+      "weekday": 5,
+      "number": 5,
+      "subject": "Проектный инженерный интенсив",
+      "type": "Интенсив",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 5,
+      "number": 6,
+      "subject": "Проектный инженерный интенсив",
+      "type": "Интенсив",
+      "teacher": "",
+      "place": "",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 2,
+      "subject": "Основы военной подготовки",
+      "type": "Лекция",
+      "teacher": "Медведев Остап Вадимович",
+      "place": "Контур Толк · онлайн",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 6,
+      "subject": "Дифференциальные уравнения",
+      "type": "Семинар",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "2/20а",
+      "requiresConfirmation": false
+    },
+    {
+      "weekday": 6,
+      "number": 7,
+      "subject": "Дифференциальные уравнения",
+      "type": "Семинар",
+      "teacher": "Зайцева Олеся Денисовна",
+      "place": "2/20а",
+      "requiresConfirmation": false
+    }
+  ],
+  "firstWeekNumber": 2,
+  "dayNotes": {
+    "2026-09-25": "Занятия отменены. Плановые пары сохранены для истории."
+  },
+  "cancelledDays": [
+    "2026-09-25"
+  ]
+}
