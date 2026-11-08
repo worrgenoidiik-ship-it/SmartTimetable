@@ -17,7 +17,7 @@ data class AppRelease(val version: String, val pageUrl: String, val apkUrl: Stri
  * installs it over the current version because both are signed with the same release key.
  */
 object AppUpdates {
-    const val REPOSITORY = "worrgenoidiik-ship-it/SmartUlSU-ios"
+    const val REPOSITORY = "worrgenoidiik-ship-it/SmartTimetable"
     const val TAG_PREFIX = "android-v"
     const val RELEASES_PAGE = "https://github.com/$REPOSITORY/releases"
     private const val API = "https://api.github.com/repos/$REPOSITORY/releases?per_page=30"
