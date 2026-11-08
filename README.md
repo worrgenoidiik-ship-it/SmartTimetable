@@ -1,12 +1,18 @@
-# SmartTimetable — неофициальный iOS-клиент ЭИОС
+# SmartTimetable — неофициальный клиент ЭИОС для iOS и Android
 
 Приложение для [ЭИОС](https://portal.ulsu.ru), которое я, студент 2 курса, делаю вместе с ИИ (Claude, ChatGPT, а раньше Gemini) для себя и одногруппников: расписание, оценки, дедлайны, курсы, сообщения и тесты в одном месте и без тормозов мобильной версии сайта.
 
 > **Неофициальное приложение.** Оно не связано с университетом и не одобрено им. Приложение работает с вашим аккаунтом так же, как браузер: открывает те же страницы и отправляет те же формы. Пользуйтесь на свой риск.
 
-Версия **1.9.5** · iOS 17+ · Swift 5 / SwiftUI · ~10 000 строк кода · 191 тест
+iOS **1.9.5** (Swift, SwiftUI, iOS 17+) · Android **2.0.2** (Kotlin, Jetpack Compose, Android 7+)
 
 ---
+
+## Установка
+
+- **Android:** скачайте APK из [Releases](https://github.com/worrgenoidiik-ship-it/SmartUlSU-ios/releases) (релизы с тегом `android-v…`) и установите его. Android попросит разрешить установку из этого источника. Новые версии приложение находит само («Настройки → Обновления приложения») и ставит поверх, без потери входа и данных.
+  Если раньше стояла сборка, полученная не отсюда, удалите её один раз перед установкой: у неё другая подпись.
+- **iOS:** соберите проект в Xcode (см. «Сборка»). В App Store приложения пока нет.
 
 ## Возможности
 
@@ -42,6 +48,8 @@
 
 ## Сборка
 
+**iOS**
+
 1. Xcode 16+, откройте `эиос.xcodeproj`.
 2. В Signing & Capabilities выберите свою команду (подойдёт бесплатный Apple ID) и при необходимости поменяйте bundle id и App Group.
 3. Запустите схему `SmartTable` на устройстве. Симулятор подходит для интерфейса и тестов, но сам портал из симулятора может быть недоступен.
@@ -51,6 +59,12 @@
 ```bash
 xcodebuild test -project эиос.xcodeproj -scheme SmartTable -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
+
+**Android** (папка [`Android`](Android))
+
+1. Откройте папку `Android` в Android Studio.
+2. Debug-сборка запускается сразу. Для release нужен свой ключ: `Android/signing/keystore.properties` (`storeFile`, `storePassword`, `keyAlias`, `keyPassword`). Папка `signing/` в git не попадает.
+3. Тесты: `./gradlew testDebugUnitTest`.
 
 Тесты сервера-пингера: `cd Server/keeper && python3 -m unittest test_keeper`.
 
@@ -63,7 +77,7 @@ xcodebuild test -project эиос.xcodeproj -scheme SmartTable -destination 'pla
 ## История
 
 - **v1.1 (январь 2026):** первая версия, около 1 100 строк. Почти всё в одном `ContentView.swift`, расписание вписано в код, пароль хранился в `UserDefaults`. Она сохранилась в истории этого репозитория.
-- **v1.2–1.9.5:** код разнесён по слоям, добавлены тесты, вход с MAX, Keychain, сообщения, тесты Moodle, дедлайны, виджет, долгая сессия и сервер-пингер. Есть порт на Android (Kotlin, Jetpack Compose), он в отдельном проекте.
+- **v1.2–1.9.5:** код разнесён по слоям, добавлены тесты, вход с MAX, Keychain, сообщения, тесты Moodle, дедлайны, виджет, долгая сессия и сервер-пингер. Порт на Android (Kotlin, Jetpack Compose) лежит в папке `Android`.
 
 ## Как сделан проект
 

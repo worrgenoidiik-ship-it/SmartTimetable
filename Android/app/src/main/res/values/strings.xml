@@ -1,0 +1,5 @@
+<resources><string name="app_name">SmartTimetable</string>    <string name="widget_next_name">Следующая пара</string>
+    <string name="widget_next_description">Ближайшая пара: день, время и аудитория</string>
+    <string name="widget_today_name">Сегодня и дедлайн</string>
+    <string name="widget_today_description">Пары на сегодня и ближайший срок сдачи</string>
+</resources>
