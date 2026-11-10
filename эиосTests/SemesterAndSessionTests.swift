@@ -57,6 +57,7 @@ final class SemesterAndSessionTests: XCTestCase {
         snapshot.portalSchedule = CachedSection(value: ScheduleWindow(days: ["2026-12-30", "2027-02-09"],
                                                                       items: [lesson("2026-12-30", "ЭИОС"), lesson("2027-02-09", "Новый семестр")],
                                                                       origin: .portal), fetchedAt: Date(), sources: [])
+        snapshot.courses = CachedSection(value: [Course(id: "g", title: "Базы данных \(ManualSchedule.group) (3 семестр)", teacher: "", url: URL(string: "https://portal.ulsu.ru/course/view.php?id=1")!)], fetchedAt: Date(), sources: []) // the plan's own group
         let auto = ScheduleSource.window(of: snapshot, mode: .auto)?.value
         XCTAssertEqual(auto?.days, ["2026-12-30", "2026-12-31", "2027-02-09"])
         XCTAssertEqual(auto?.items.map(\.subject), ["План", "Новый семестр"])

@@ -51,7 +51,7 @@ struct NativeLoginScreen: View {
             }
         }
         .tint(accent)
-        .overlay { if allowsClose && auth.isLocked { AppLockScreen() } }
+        .overlay { if allowsClose { LockOverlay() } }
         .task {
             if let saved = CredentialVault.load() {
                 username = saved.username; password = saved.password

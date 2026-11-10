@@ -202,6 +202,12 @@ struct InfoTab: View {
         }
     }
 
+    /// «ИС-О-25/1 · 3 семестр» once the group is known from the student's own courses.
+    private var studentLine: String {
+        guard let group = networkManager.studentGroup else { return "Студент УлГУ" }
+        return group + (StudentGroup.currentSemester(group: group).map { " · \($0) семестр" } ?? "")
+    }
+
     private var studentCard: some View {
         ZStack(alignment: .bottomTrailing) {
             LinearGradient(gradient: Gradient(colors: Color.gradientColors(index: dataManager.cardColorIndex)), startPoint: .top, endPoint: .bottom)
@@ -238,7 +244,8 @@ struct InfoTab: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(networkManager.userNameFromSite.isEmpty ? "Загрузка..." : networkManager.userNameFromSite)
                             .font(.system(size: 20, weight: .heavy)).foregroundColor(.white).lineLimit(2)
-                        Text("Студент УлГУ").font(.title3).fontWeight(.black).foregroundColor(.white.opacity(0.95))
+                        Text(studentLine).font(.title3).fontWeight(.black).foregroundColor(.white.opacity(0.95))
+                            .lineLimit(1).minimumScaleFactor(0.7)
                     }
                     Spacer()
                 }.padding(.bottom, 10)

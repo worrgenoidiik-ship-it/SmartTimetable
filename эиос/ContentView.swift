@@ -217,7 +217,7 @@ struct ContentView: View {
                 LoginView(isChristmas: isChristmasMode)
             }
             if isChristmasMode && !authManager.isLocked { SnowView() }
-            if authManager.isLocked { AppLockScreen() }
+            LockOverlay()
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .sheet(isPresented: $networkManager.showLogin) {
@@ -225,6 +225,8 @@ struct ContentView: View {
         }
         .task {
             ChristmasMode.refresh()
+            LockWindow.shared.start()
+            CrashReports.shared.start()
             authManager.authenticate()
             await networkManager.bootstrap()
             await networkManager.restoreSavedSession() // also marks startup as resolved
@@ -232,6 +234,7 @@ struct ContentView: View {
             AppNotificationManager.shared.updateFromSnapshot()
         }
         .onChange(of: scenePhase) { _, phase in
+            authManager.setInFront(phase == .active)
             if phase == .active {
                 ChristmasMode.refresh()
                 if authManager.isLocked { authManager.authenticate() }
@@ -289,6 +292,58 @@ struct MainAppView: View {
         .tint(Color.themeAccent(isChristmas: isChristmasMode))
         .onChange(of: selection) { _, val in if val == 0 { resetTrigger.toggle() } }
         .task { await messenger.loadConversations() } // unread chats on the tab badge
+    }
+}
+
+/// What hides the app's content: the lock screen, or a plain cover while the app is not in
+/// front (so grades are not visible in the app switcher). Used by the root and by every sheet.
+@MainActor
+struct LockOverlay: View {
+    @ObservedObject private var auth = AppAuthManager.shared
+    var body: some View {
+        if auth.isLocked {
+            AppLockScreen()
+        } else if auth.isCovered {
+            VStack(spacing: 12) {
+                Image(systemName: "lock.fill").font(.system(size: 44)).foregroundStyle(.secondary)
+                Text("SmartTimetable").font(.headline).foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(UIColor.systemBackground)).ignoresSafeArea()
+            .accessibilityHidden(true)
+        }
+    }
+}
+
+/// The lock and the cover live in their own window above everything. An overlay inside the
+/// root view stays under an open sheet (deadlines, a course, a test), so the sheet's content
+/// would remain readable on a locked app.
+@MainActor
+final class LockWindow {
+    static let shared = LockWindow()
+    private var window: UIWindow?
+    private var watching: AnyCancellable?
+
+    func start() {
+        guard watching == nil else { return }
+        let auth = AppAuthManager.shared
+        watching = auth.$isLocked.combineLatest(auth.$isCovered)
+            .map { $0 || $1 }.removeDuplicates()
+            .sink { [weak self] visible in self?.show(visible) }
+    }
+
+    private func show(_ visible: Bool) {
+        if visible, window == nil,
+           let scene = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first {
+            let created = UIWindow(windowScene: scene)
+            created.windowLevel = .alert + 1
+            created.rootViewController = UIHostingController(rootView: LockOverlay())
+            window = created
+        }
+        // The app's own light/dark switch (ContentView.preferredColorScheme) does not reach another window.
+        let dark = UserDefaults.standard.object(forKey: "isDarkMode") as? Bool ?? true
+        window?.overrideUserInterfaceStyle = dark ? .dark : .light
+        window?.isHidden = !visible
     }
 }
 

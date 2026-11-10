@@ -20,6 +20,7 @@ import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.anton.smartulsu.core.PortalSnapshot
+import com.anton.smartulsu.core.StudentGroup
 
 @Composable
 internal fun StudentProfileCard(
@@ -55,10 +56,12 @@ internal fun StudentProfileCard(
                 .padding(horizontal = 18.dp, vertical = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text("УЧЕБНЫЕ ДАННЫЕ", color = Color.White, fontWeight = FontWeight.Bold)
-                // Available authenticated responses verify identity and grades only.
-                // Do not turn a Moodle ID or a semester label into academic profile data.
-                Text("Дополнительные данные пока недоступны", color = Color.White.copy(alpha = .7f),
-                    style = MaterialTheme.typography.bodySmall)
+                // The group comes from the student's own course titles («Базы данных ИС-О-25/1 (…)»),
+                // so it works for any faculty without asking the student anything.
+                val group = StudentGroup.detect(snapshot.courses?.value.orEmpty())
+                Text(if (group == null) "Группа определится после загрузки курсов"
+                    else "Группа $group" + (StudentGroup.currentSemester(group)?.let { " · $it семестр" } ?: ""),
+                    color = Color.White, style = MaterialTheme.typography.bodySmall)
                 val grades = snapshot.grades?.value
                 Text(if (grades == null) "Зачётная книжка ещё не загружена"
                     else "Записей в зачётке: ${grades.size} · Семестров: ${grades.map { it.semester }.distinct().size}",

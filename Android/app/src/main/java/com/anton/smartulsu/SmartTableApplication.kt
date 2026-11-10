@@ -17,13 +17,25 @@ class SmartTableApplication : Application() {
     lateinit var preferences: AppPreferences
         private set
 
+    /** What happened to the portal session; shown in Settings, never sent anywhere by itself. */
+    lateinit var journal: com.anton.smartulsu.core.SessionJournal
+        private set
+    private val diagnostics by lazy { getSharedPreferences("session_journal", Context.MODE_PRIVATE) }
+    val lastCrash: String? get() = diagnostics.getString("lastCrash", null)
+
     override fun onCreate() {
         super.onCreate()
         preferences = AppPreferences(this)
+        journal = com.anton.smartulsu.core.SessionJournal(
+            read = { diagnostics.getString("entries", null) },
+            write = { value -> diagnostics.edit().apply { if (value == null) remove("entries") else putString("entries", value) }.apply() },
+        )
+        recordCrashes()
         PortalNotifier.createChannels(this)
         repository = NetworkManager(this)
         applicationScope.launch { RefreshScheduler.ensure(this@SmartTableApplication) }
         RefreshScheduler.ensureKeepAlive(this)
+        watchSession()
         // Deadline reminders follow the cached calendar and the notification settings.
         applicationScope.launch {
             combine(
@@ -47,6 +59,37 @@ class SmartTableApplication : Application() {
                     snapshot.deadlines?.value.orEmpty(),
                 )
             }.collect { com.anton.smartulsu.widget.WidgetBridge.publish(this@SmartTableApplication, it) }
+        }
+    }
+
+    private fun watchSession() {
+        applicationScope.launch {
+            var last: com.anton.smartulsu.core.SessionState? = null
+            repository.state.map { it.session }.distinctUntilChanged().collect { session ->
+                com.anton.smartulsu.core.SessionJournal.describe(last, session)?.let(journal::add)
+                last = session
+            }
+        }
+        applicationScope.launch {
+            var signedIn: Boolean? = null
+            repository.state.map { it.snapshot.profile != null }.distinctUntilChanged().collect { now ->
+                if (signedIn == true && !now) journal.add("Выход из аккаунта: данные удалены с телефона")
+                signedIn = now
+            }
+        }
+    }
+
+    /** A short summary of the last crash (exception and our own code lines, no user data) for
+     *  «Сообщить о проблеме». Then Android shows its usual «приложение остановлено». */
+    private fun recordCrashes() {
+        val previous = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, error ->
+            runCatching {
+                val time = java.text.SimpleDateFormat("dd.MM.yyyy HH:mm", java.util.Locale.ROOT).format(java.util.Date())
+                val version = packageManager.getPackageInfo(packageName, 0).versionName ?: "?"
+                diagnostics.edit().putString("lastCrash", com.anton.smartulsu.core.ProblemReport.crashSummary(time, version, error)).commit()
+            }
+            previous?.uncaughtException(thread, error)
         }
     }
 

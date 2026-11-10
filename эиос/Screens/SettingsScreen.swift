@@ -17,6 +17,7 @@ struct SettingsView: View {
     @State private var importingPlan = false
     @State private var planMessage: String?
     @State private var planFile: URL?
+    @State private var report: String?
     @Binding var isDarkMode: Bool
     @Binding var isChristmasMode: Bool
     @ObservedObject private var network = NetworkManager.shared
@@ -42,7 +43,12 @@ struct SettingsView: View {
                         AppNotificationManager.shared.updateFromSnapshot()
                         if value != ScheduleMode.manual.rawValue { Task { _ = await network.refresh(force: true) } }
                     }
+                    LabeledContent("Ваша группа", value: network.studentGroup ?? "не определена")
                     LabeledContent("План группы", value: "\(ManualSchedule.group) · до \(Self.shortDate(ManualSchedule.lastDay))")
+                    if !StudentGroup.planApplies(to: network.snapshot) {
+                        Text("Этот план составлен для другой группы, поэтому в режиме «Авто» показывается расписание из ЭИОС. Староста может один раз составить план вашей группы (файл JSON) и поделиться им: «Загрузить план нового семестра…».")
+                            .font(.caption).foregroundColor(.secondary)
+                    }
                     Button("Загрузить план нового семестра…") { importingPlan = true }
                     if let planFile = planFile {
                         ShareLink("Поделиться текущим планом (шаблон)", item: planFile)
@@ -101,6 +107,13 @@ struct SettingsView: View {
                 Section {
                     NavigationLink { NotesScreen() } label: { Label("Личные заметки", systemImage: "pencil.and.scribble") }
                 }
+                Section(header: Text("Помощь"),
+                        footer: Text("Отчёт вы отправляете сами, куда захотите (например, автору в Telegram). В нём версия, модель телефона, группа, ошибки загрузки и журнал сессии. ФИО, пароля, оценок и сообщений в нём нет.")) {
+                    if let report {
+                        ShareLink(item: report) { Label("Сообщить о проблеме", systemImage: "exclamationmark.bubble") }
+                    }
+                    Link(destination: ProblemReport.projectURL) { Label("Страница проекта на GitHub", systemImage: "link") }
+                }
                 Section(footer: Text("SmartTimetable \(Self.version)")) {
                     Button("Выйти и удалить данные с телефона", role: .destructive) { confirmLogout = true }
                         .disabled(network.isSigningOut)
@@ -110,7 +123,7 @@ struct SettingsView: View {
             .background(Color.appBackground)
             .tint(Color.themeAccent(isChristmas: isChristmasMode))
             .navigationTitle("Настройки")
-            .onAppear(perform: preparePlanFile)
+            .onAppear { preparePlanFile(); prepareReport() }
             .fileImporter(isPresented: $importingPlan, allowedContentTypes: [.json]) { result in
                 do {
                     let url = try result.get()
@@ -139,6 +152,19 @@ struct SettingsView: View {
     }
 
     private func preparePlanFile() { planFile = try? ManualPlanStore.exportCurrent() }
+
+    private func prepareReport() {
+        report = ProblemReport.text(
+            version: Self.version, system: "iOS \(UIDevice.current.systemVersion)", device: Self.deviceModel,
+            group: network.studentGroup, errors: network.errors, journal: SessionJournal.text(), crash: CrashReports.last)
+    }
+
+    /// «iPhone14,5»: the exact model, which the system does not give in words.
+    private static var deviceModel: String {
+        var info = utsname()
+        uname(&info)
+        return withUnsafeBytes(of: &info.machine) { String(decoding: $0.prefix { $0 != 0 }, as: UTF8.self) }
+    }
 
     private static func shortDate(_ key: String) -> String {
         guard let date = CampusDate.formatter("yyyy-MM-dd").date(from: key) else { return key }

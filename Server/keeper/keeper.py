@@ -22,6 +22,7 @@ import ssl
 import threading
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -35,13 +36,46 @@ KEY = os.environ.get("KEEPER_KEY", "/root/cert/ip/privkey.pem")
 PORT = int(os.environ.get("KEEPER_PORT", "49154"))
 MIN_DELAY, MAX_DELAY = 30 * 60, 60 * 60
 RETRY_DELAY = 5 * 60
-COOKIE_NAME = re.compile(r"^[A-Za-z0-9_\-.]{1,64}$")
-COOKIE_VALUE = re.compile(r"^[A-Za-z0-9_\-.%=+/:~]{0,512}$")
+COOKIE_NAME = re.compile(r"[A-Za-z0-9_\-.]{1,64}")  # used with fullmatch: "$" alone lets "\n" through
+COOKIE_VALUE = re.compile(r"[A-Za-z0-9_\-.%=+/:~]{0,512}")
+MAX_CONNECTIONS, MAX_PER_IP = 32, 4  # open connections at once: in total and from one address
 USER_AGENT = "SmartTimetable keeper"
 
 lock = threading.RLock()
 wake = threading.Event()
 failures = {}  # ip -> [timestamps] of rejected secrets
+connections = {}  # ip -> open connections now
+
+
+def valid_cookies(cookies):
+    return (isinstance(cookies, dict) and 0 < len(cookies) <= 20
+            and all(isinstance(k, str) and isinstance(v, str) and COOKIE_NAME.fullmatch(k) and COOKIE_VALUE.fullmatch(v)
+                    for k, v in cookies.items()))
+
+
+def note_failure(ip, now):
+    """Remembers a rejected secret; forgets addresses that have been quiet for 10 minutes."""
+    with lock:
+        for other in [k for k, times in failures.items() if not times or now - times[-1] >= 600]:
+            del failures[other]
+        failures[ip] = [t for t in failures.get(ip, []) if now - t < 600] + [now]
+
+
+def take_slot(ip):
+    with lock:
+        if sum(connections.values()) >= MAX_CONNECTIONS or connections.get(ip, 0) >= MAX_PER_IP:
+            return False
+        connections[ip] = connections.get(ip, 0) + 1
+        return True
+
+
+def free_slot(ip):
+    with lock:
+        left = connections.get(ip, 0) - 1
+        if left > 0:
+            connections[ip] = left
+        else:
+            connections.pop(ip, None)
 
 
 def log(text):
@@ -110,7 +144,8 @@ def is_login(status, headers, html):
     if status == 401:
         return True
     if 300 <= status < 400:
-        location = (headers.get("Location") or "").lower()
+        # A relative Location ("/my/") points to the portal itself, so resolve it first.
+        location = urllib.parse.urljoin(PROBE, headers.get("Location") or "").lower()
         return "login" in location or "auth" in location or "sso" in location or not location.startswith(PORTAL)
     if status != 200:
         return False
@@ -152,7 +187,7 @@ def check():
     now = int(time.time())
     try:
         status, headers, html = request(PROBE, cookies)
-    except OSError as error:
+    except (OSError, ValueError) as error:  # ValueError: http.client refused to send a header
         with lock:
             state.update(last_check=now, error=f"нет связи с ЭИОС: {error.__class__.__name__}")
             save_state()
@@ -252,14 +287,15 @@ class Handler(BaseHTTPRequestHandler):
     def authorized(self):
         ip = self.client_address[0]
         now = time.time()
-        recent = [t for t in failures.get(ip, []) if now - t < 600]
+        with lock:
+            recent = [t for t in failures.get(ip, []) if now - t < 600]
         if len(recent) >= 10:
             self.reply(429, {"error": "слишком много неверных ключей, подождите 10 минут"})
             return False
         given = (self.headers.get("Authorization") or "").removeprefix("Bearer ").strip()
         if given and hmac.compare_digest(given.encode(), read_secret().encode()):
             return True
-        failures[ip] = recent + [now]
+        note_failure(ip, now)
         time.sleep(1)
         self.reply(401, {"error": "неверный ключ"})
         return False
@@ -301,10 +337,9 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(413, {"error": "bad size"})
         try:
             cookies = json.loads(self.rfile.read(length))["cookies"]
-            assert isinstance(cookies, dict) and 0 < len(cookies) <= 20
-            assert all(isinstance(k, str) and isinstance(v, str) and COOKIE_NAME.match(k) and COOKIE_VALUE.match(v)
-                       for k, v in cookies.items())
-        except (ValueError, KeyError, TypeError, AssertionError):
+        except (ValueError, KeyError, TypeError):
+            cookies = None
+        if not valid_cookies(cookies):
             return self.reply(400, {"error": "bad cookies"})
         code, payload = accept_cookies(cookies)
         self.reply(code, payload)
@@ -320,7 +355,7 @@ def accept_cookies(cookies):
     try:
         status, headers, html = request(PROBE, cookies)
         accepted = verdict(status, headers, html)
-    except OSError:
+    except (OSError, ValueError):
         accepted = None
     with lock:
         current_alive = bool(state.get("cookies")) and state.get("alive")
@@ -352,6 +387,24 @@ class Server(ThreadingHTTPServer):
 
     def handle_error(self, request, client_address):
         pass  # scanners and failed handshakes: nothing to log
+
+    def process_request(self, request, client_address):
+        """One thread per connection, but a bounded number of them: a flood of idle
+        connections is dropped at once instead of piling up threads."""
+        ip = client_address[0]
+        if not take_slot(ip):
+            return self.shutdown_request(request)
+        try:
+            super().process_request(request, client_address)
+        except Exception:
+            free_slot(ip)
+            raise
+
+    def process_request_thread(self, request, client_address):
+        try:
+            super().process_request_thread(request, client_address)
+        finally:
+            free_slot(client_address[0])
 
 
 def main():

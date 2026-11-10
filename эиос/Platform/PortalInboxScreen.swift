@@ -57,6 +57,6 @@ struct PortalInboxScreen: View {
                 showImport = true
             }
         }
-        .overlay { if auth.isLocked { AppLockScreen() } }
+        .overlay { LockOverlay() }
     }
 }

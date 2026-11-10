@@ -57,7 +57,9 @@ data class ManualPlan(
     }
 }
 
-class ManualSchedule(json: String) {
+/** [imported]: the student loaded this plan themselves (Settings), so it is theirs even before
+ *  the group is known; the built-in plan is shown only to its own group. */
+class ManualSchedule(json: String, val imported: Boolean = false) {
     val plan: ManualPlan = runCatching { Gson().fromJson(json, ManualPlan::class.java) }.getOrNull()
         ?.validate() ?: throw PortalFailure.Parse("файл плана (ожидается JSON как manual_schedule.json)")
     private val first = LocalDate.parse(plan.firstDay)

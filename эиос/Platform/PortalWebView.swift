@@ -97,7 +97,7 @@ struct PortalBrowserScreen: View {
         }
         // A swipe down must not close a quiz or an unsent message by accident.
         .interactiveDismissDisabled(!isLogin)
-        .overlay { if auth.isLocked { AppLockScreen() } }
+        .overlay { LockOverlay() }
         .task {
             guard !entered else { return }
             entered = true

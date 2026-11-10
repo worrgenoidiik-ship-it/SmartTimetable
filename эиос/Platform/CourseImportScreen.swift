@@ -44,7 +44,7 @@ struct CourseImportScreen: View {
             .navigationTitle(kind.title).navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .navigationBarTrailing) { Button("Закрыть") { dismiss() } } }
         }
-        .overlay { if auth.isLocked { AppLockScreen() } }
+        .overlay { LockOverlay() }
         .task { await importer.start() }
         .onChange(of: importer.completed) { _, completed in if completed { dismiss() } }
         .onDisappear { importer.close() }

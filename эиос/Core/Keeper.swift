@@ -59,7 +59,9 @@ enum Keeper {
     static func portalCookies(_ cookies: [HTTPCookie]) -> [String: String] {
         // The same name can exist for "portal.ulsu.ru" and ".ulsu.ru" (an old copy): the exact
         // host wins, then the longer domain, so a stale duplicate is never sent.
-        let live = cookies.filter { cookieApplies($0.domain) && ($0.expiresDate.map { $0 > Date() } ?? true) }
+        let live = cookies.filter {
+            cookieApplies($0.domain) && !isAnalytics($0.name) && ($0.expiresDate.map { $0 > Date() } ?? true)
+        }
         func rank(_ cookie: HTTPCookie) -> Int {
             cookie.domain.lowercased() == PortalConfiguration.baseURL.host!.lowercased() ? 1_000 : cookie.domain.count
         }
@@ -68,6 +70,14 @@ enum Keeper {
             result[cookie.name] = (rank(cookie), cookie.value)
         }
         return result.mapValues(\.value)
+    }
+
+    /// Counters that the portal's pages set next to the session (Яндекс.Метрика, Top.Mail.Ru,
+    /// Google Analytics). The keeper does not need them, so they never leave the phone.
+    static func isAnalytics(_ name: String) -> Bool {
+        let lower = name.lowercased()
+        return ["_ym", "_ga", "_gid", "_gat", "_gcl", "_fbp", "tmr_", "top100", "yandexuid", "ymex", "yabs"]
+            .contains { lower.hasPrefix($0) } || lower == "domain_sid"
     }
 
     static func cookieApplies(_ domain: String) -> Bool {

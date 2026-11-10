@@ -43,7 +43,7 @@ class NetworkManager internal constructor(
     private val builtInPlan = context.assets.open("manual_schedule.json").bufferedReader().use { it.readText() }
     private val planFile = java.io.File(context.filesDir, "manual_plan.json")
     private val manualMutable = MutableStateFlow(
-        runCatching { if (planFile.exists()) ManualSchedule(planFile.readText()) else null }.getOrNull()
+        runCatching { if (planFile.exists()) ManualSchedule(planFile.readText(), imported = true) else null }.getOrNull()
             ?: ManualSchedule(builtInPlan)
     )
     val manualScheduleState = manualMutable.asStateFlow()
@@ -52,7 +52,7 @@ class NetworkManager internal constructor(
 
     /** Validates first; a wrong file leaves the current plan untouched. */
     fun importPlan(json: String): ManualPlan {
-        val schedule = ManualSchedule(json)
+        val schedule = ManualSchedule(json, imported = true)
         val temp = java.io.File(planFile.parentFile, planFile.name + ".tmp")
         temp.writeText(json)
         if (!temp.renameTo(planFile)) { planFile.delete(); temp.renameTo(planFile) }

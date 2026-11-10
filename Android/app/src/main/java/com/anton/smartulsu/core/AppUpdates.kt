@@ -41,10 +41,10 @@ object AppUpdates {
         if (!tag.startsWith(TAG_PREFIX) || item.flag("draft") || item.flag("prerelease")) return@mapNotNull null
         val version = tag.removePrefix(TAG_PREFIX)
         if (parts(version).isEmpty()) return@mapNotNull null
-        val page = item.text("html_url")?.takeIf { isGitHub(it) } ?: RELEASES_PAGE
+        val page = item.text("html_url")?.takeIf { it.startsWith("$RELEASES_PAGE/") } ?: RELEASES_PAGE
         val assets = item.get("assets")?.takeIf { it.isJsonArray }?.asJsonArray
         val apk = assets?.mapNotNull { asset -> asset.takeIf { it.isJsonObject }?.asJsonObject?.text("browser_download_url") }
-            ?.firstOrNull { it.endsWith(".apk") && isGitHub(it) }
+            ?.firstOrNull { isOwnApk(it, tag) }
         AppRelease(version, page, apk, item.text("body").orEmpty().take(600))
     }
 
@@ -74,7 +74,14 @@ object AppUpdates {
     private fun parts(version: String): List<Int> =
         version.trim().split('.').map { it.toIntOrNull() ?: return emptyList() }
 
-    private fun isGitHub(url: String): Boolean = url.startsWith("https://github.com/")
+    /** Only an APK attached to this very release of this repository: a link to another
+     *  repository on github.com (anyone can create one) is never offered for installation. */
+    fun isOwnApk(url: String, tag: String): Boolean {
+        val prefix = "$RELEASES_PAGE/download/$tag/"
+        if (!url.startsWith(prefix) || !url.endsWith(".apk")) return false
+        val name = url.removePrefix(prefix)
+        return name.isNotEmpty() && name.none { it == '/' || it == '?' || it == '#' || it == '\\' } && ".." !in name
+    }
 
     /** One request; any failure (offline, repository private, rate limit) is just "no update". */
     suspend fun fetchLatest(): AppRelease? = withContext(Dispatchers.IO) {

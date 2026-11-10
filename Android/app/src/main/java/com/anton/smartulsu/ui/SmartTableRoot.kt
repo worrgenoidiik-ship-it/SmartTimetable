@@ -696,7 +696,7 @@ internal fun ProfileScreen(
                     )
                 }
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    Text("Студент УлГУ · Перевернуть", Modifier.weight(1f), color = Color.White.copy(alpha = .7f),
+                    Text((StudentGroup.detect(state.snapshot.courses?.value.orEmpty()) ?: "Студент УлГУ") + " · Перевернуть", Modifier.weight(1f), color = Color.White.copy(alpha = .7f),
                         style = MaterialTheme.typography.bodySmall)
                     IconButton(enabled = !photoBusy, onClick = ::choosePhoto) {
                         Icon(Icons.Outlined.Edit, "Изменить фото", tint = Color.White)
@@ -1175,6 +1175,7 @@ private fun SettingsScreen(
             }
         }
         item { AppUpdateCard() }
+        item { HelpCard() }
         item { Hint("SmartTimetable для Android · ${appVersion(LocalContext.current)}\nАвтор проекта — Антон Борисов") }
     }
     if (confirm && unlocked)
@@ -1295,7 +1296,13 @@ private fun SchedulePlanSettings(pref: UiPreferences, choose: (String) -> Unit) 
             }
     }
     Hint("«Авто»: пока идёт план группы — он, после его окончания — расписание из ЭИОС. Новый семестр не требует переустановки.")
+    val portal by repo.state.collectAsState()
+    val group = StudentGroup.detect(portal.snapshot.courses?.value.orEmpty())
+    Hint("Ваша группа: ${group ?: "не определена"}")
     Hint("План группы: ${manual.plan.group} · ${manual.periodLabel}")
+    if (!StudentGroup.planApplies(portal.snapshot, manual))
+        Hint("Этот план составлен для другой группы, поэтому в режиме «Авто» показывается расписание из ЭИОС. " +
+            "Староста может один раз составить план вашей группы (файл JSON) и поделиться им: «Загрузить план нового семестра…».")
     TextButton(onClick = { importer.launch(arrayOf("application/json", "text/plain", "application/octet-stream")) }) {
         Text("Загрузить план нового семестра…")
     }
@@ -1357,6 +1364,46 @@ private fun AppUpdatePrompt(locked: Boolean) {
                 }
             },
         )
+}
+
+/** «Сообщить о проблеме», the session journal and the project page. */
+@Composable
+private fun HelpCard() {
+    val context = LocalContext.current
+    val app = context.applicationContext as SmartTableApplication
+    val state by app.repository.state.collectAsState()
+    val clipboard = androidx.compose.ui.platform.LocalClipboardManager.current
+    var journal by remember { mutableStateOf<String?>(null) }
+    SectionCard {
+        Text("Помощь", fontWeight = FontWeight.Bold)
+        Hint("Отчёт вы отправляете сами, куда захотите (например, автору в Telegram). В нём версия, модель телефона, " +
+            "группа, ошибки загрузки и журнал сессии. ФИО, пароля, оценок и сообщений в нём нет.")
+        TextButton(onClick = {
+            val text = ProblemReport.text(
+                appVersion(context), "Android ${Build.VERSION.RELEASE}", "${Build.MANUFACTURER} ${Build.MODEL}",
+                StudentGroup.detect(state.snapshot.courses?.value.orEmpty()),
+                state.errors.mapKeys { it.key.title }, app.journal.text(), app.lastCrash,
+            )
+            val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
+            runCatching { context.startActivity(Intent.createChooser(send, "Сообщить о проблеме")) }
+        }) { Text("Сообщить о проблеме") }
+        TextButton(onClick = { journal = if (journal == null) app.journal.text() else null }) {
+            Text(if (journal == null) "Журнал сессии" else "Скрыть журнал сессии")
+        }
+        journal?.let { text ->
+            Hint("Когда сессия была активна, когда пропадала связь и когда ЭИОС попросила войти. Новые записи сверху.")
+            Text(text.lines().take(60).joinToString("\n").ifEmpty { "Пока пусто" }, style = MaterialTheme.typography.bodySmall)
+            Row {
+                TextButton(enabled = text.isNotEmpty(), onClick = {
+                    clipboard.setText(androidx.compose.ui.text.AnnotatedString("SmartTimetable ${appVersion(context)}\n$text"))
+                }) { Text("Скопировать") }
+                TextButton(enabled = text.isNotEmpty(), onClick = { app.journal.clear(); journal = "" }) {
+                    Text("Очистить", color = MaterialTheme.colorScheme.error)
+                }
+            }
+        }
+        TextButton(onClick = { openLink(context, ProblemReport.PROJECT_URL) }) { Text("Страница проекта на GitHub") }
+    }
 }
 
 /** Settings: the installed version and a manual check. */

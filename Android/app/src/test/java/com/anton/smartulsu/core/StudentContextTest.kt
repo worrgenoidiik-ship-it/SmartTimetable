@@ -97,3 +97,21 @@ class StudentContextTest {
         assertEquals("student@ulsu.ru", form.email)
     }
 }
+
+class OtherFacultyTest {
+    private fun course(title: String) = Course(title, title, "", "https://portal.ulsu.ru/course/view.php?id=1")
+
+    @Test fun groupCodesOfOtherFaculties() {
+        assertEquals("ФКиС-О-23/1", StudentGroup.detect(listOf(course("Физическая культура ФКиС-О-23/1 (5 семестр)"))))
+        assertEquals("ЭК-Зу-22/1", StudentGroup.detect(listOf(course("Экономика ЭК-Зу-22/1 (7 семестр)"))))
+        assertEquals("Экономика", CourseTitle("Экономика ЭК-Зу-22/1 (7 семестр)").subject)
+        assertEquals(7, StudentGroup.currentSemester("ФКиС-О-23/1", LocalDate.of(2026, 11, 1)))
+        assertTrue(StudentGroup.sameGroup("фкис-о-23/1", "ФКиС-О-23/1"))
+    }
+
+    @Test fun builtInPlanIsNotGuessedForAnUnknownGroup() {
+        assertFalse(StudentGroup.planApplies(null, "ИС-О-25/1", imported = false))
+        assertTrue(StudentGroup.planApplies(null, "ПИ-О-24/2", imported = true))
+        assertFalse(StudentGroup.planApplies("ПИ-О-24/2", "ИС-О-25/1", imported = true))
+    }
+}

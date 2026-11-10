@@ -48,7 +48,9 @@ class SemesterAndWidgetTest {
 
     @Test fun autoUsesThePlanInsideItsPeriodAndThePortalAfterIt() {
         val manual = ManualSchedule(asset)
-        val snapshot = PortalSnapshot(portalSchedule = CachedSection(ScheduleWindow(
+        // The built-in plan is shown only to its own group, known from the course titles.
+        val own = CachedSection(listOf(Course("g", "Базы данных ${manual.plan.group} (3 семестр)", "", "https://portal.ulsu.ru/course/view.php?id=1")))
+        val snapshot = PortalSnapshot(courses = own, portalSchedule = CachedSection(ScheduleWindow(
             listOf("2026-12-30", "2027-02-09"),
             listOf(lesson("2026-12-30", "ЭИОС"), lesson("2027-02-09", "Новый семестр")))))
         val auto = ScheduleSource.window(snapshot, manual, ScheduleSource.AUTO)!!
@@ -56,7 +58,10 @@ class SemesterAndWidgetTest {
         assertTrue(auto.items.any { it.subject == "Новый семестр" })
         assertTrue(ScheduleSource.isPlanned("2026-12-31", manual, ScheduleSource.AUTO))
         assertFalse(ScheduleSource.isPlanned("2027-02-09", manual, ScheduleSource.AUTO))
-        assertEquals(manual.window, ScheduleSource.window(PortalSnapshot(), manual, ScheduleSource.AUTO))
+        assertEquals(manual.window, ScheduleSource.window(PortalSnapshot(courses = own), manual, ScheduleSource.AUTO))
+        // Group unknown: the built-in plan is not guessed, an imported one is the student's own.
+        assertNull(ScheduleSource.window(PortalSnapshot(), manual, ScheduleSource.AUTO))
+        assertEquals(manual.window, ScheduleSource.window(PortalSnapshot(), ManualSchedule(asset, imported = true), ScheduleSource.AUTO))
     }
 
     @Test fun widgetSummaryAndNextChange() {

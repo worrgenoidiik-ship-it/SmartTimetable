@@ -10,7 +10,7 @@ final class StudentContextTests: XCTestCase {
     func testGroupComesFromCourseTitles() {
         let courses = [course("Базы данных ИС-О-25/1 (3 семестр, Комарова Юлиана Егоровна)"),
                        course("ИС_О_25/1_Web_технологии_4_415356"), course("История")]
-        XCTAssertEqual(StudentGroup.detect(in: courses), "ИС-О-25/1")
+        XCTAssertEqual(StudentGroup.detect(in: courses).map(StudentGroup.normalized), "ИС-О-25/1")
         XCTAssertNil(StudentGroup.detect(in: [course("История")]))
     }
 
@@ -57,5 +57,54 @@ final class StudentContextTests: XCTestCase {
         XCTAssertEqual(colour.hexString, "FF8000FF")
         XCTAssertEqual(Color(hex: "FF8000FF")?.hexString, "FF8000FF")
         XCTAssertNil(Color(hex: "xyz"))
+    }
+}
+
+final class OtherFacultyAndReportTests: XCTestCase {
+    private let url = URL(string: "https://portal.ulsu.ru/course/view.php?id=1")!
+    private func course(_ title: String) -> Course { Course(id: title, title: title, teacher: "", url: url) }
+
+    func testGroupCodesOfOtherFaculties() {
+        XCTAssertEqual(StudentGroup.detect(in: [course("Физическая культура ФКиС-О-23/1 (5 семестр)"),
+                                                course("История ФКиС-О-23/1 (5 семестр)")]), "ФКиС-О-23/1")
+        XCTAssertEqual(StudentGroup.detect(in: [course("Экономика ЭК-Зу-22/1 (7 семестр)")]), "ЭК-Зу-22/1")
+        XCTAssertEqual(StudentGroup.detect(in: [course("Алгоритмы ИСм-О-25/1 (1 семестр)")]), "ИСм-О-25/1")
+        XCTAssertEqual(StudentGroup.currentSemester(group: "ФКиС-О-23/1", on: CampusDate.formatter("yyyy-MM-dd").date(from: "2026-11-01")!), 7)
+        XCTAssertFalse(StudentGroup.sameGroup("ФКиС-О-23/1", "ИС-О-25/1"))
+        XCTAssertTrue(StudentGroup.sameGroup("фкис-о-23/1", "ФКиС-О-23/1"))
+    }
+
+    func testBuiltInPlanIsNotGuessedForAnUnknownGroup() {
+        XCTAssertFalse(StudentGroup.planApplies(group: nil, plan: "ИС-О-25/1", imported: false))
+        XCTAssertTrue(StudentGroup.planApplies(group: nil, plan: "ПИ-О-24/2", imported: true))
+        XCTAssertTrue(StudentGroup.planApplies(group: "ИС-О-25/1", plan: "ИС-О-25/1", imported: false))
+        XCTAssertFalse(StudentGroup.planApplies(group: "ПИ-О-24/2", plan: "ИС-О-25/1", imported: true))
+    }
+
+    func testKeeperGetsOnlyTheSessionCookies() {
+        func cookie(_ name: String) -> HTTPCookie {
+            HTTPCookie(properties: [.name: name, .value: "v", .domain: "portal.ulsu.ru", .path: "/"])!
+        }
+        let sent = Keeper.portalCookies(["MoodleSession", "MOODLEID1_", "_ym_uid", "_ym_d", "tmr_lvid", "domain_sid", "_ga"].map(cookie))
+        XCTAssertEqual(Set(sent.keys), ["MoodleSession", "MOODLEID1_"])
+    }
+
+    func testProblemReportHasNoPersonalData() {
+        let text = ProblemReport.text(version: "1.9.7 (1)", system: "iOS 26.0", device: "iPhone14,5", group: "ИС-О-25/1",
+                                      errors: ["grades": "Нет связи"], journal: "10.11 12:00:00  Вход выполнен", crash: nil)
+        XCTAssertTrue(text.contains("1.9.7"))
+        XCTAssertTrue(text.contains("grades: Нет связи"))
+        XCTAssertTrue(text.contains("Вход выполнен"))
+        XCTAssertFalse(text.contains("Последнее падение"))
+    }
+
+    func testCrashFramesFromMetricKitJSON() {
+        let json = """
+        {"callStackTree":"x","callStacks":[{"threadAttributed":false,"callStackRootFrames":[{"binaryName":"libsystem","offsetIntoBinaryTextSegment":1}]},
+         {"threadAttributed":true,"callStackRootFrames":[{"binaryName":"SmartTable","offsetIntoBinaryTextSegment":4096,
+           "subFrames":[{"binaryName":"SwiftUI","offsetIntoBinaryTextSegment":77}]}]}]}
+        """
+        XCTAssertEqual(ProblemReport.crashFrames(callStackJSON: Data(json.utf8)), ["SmartTable+4096", "SwiftUI+77"])
+        XCTAssertEqual(ProblemReport.crashFrames(callStackJSON: Data("nope".utf8)), [])
     }
 }

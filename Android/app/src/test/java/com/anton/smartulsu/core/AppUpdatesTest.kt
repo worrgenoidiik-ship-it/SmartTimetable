@@ -9,10 +9,10 @@ import org.junit.Test
 class AppUpdatesTest {
     private val json = """
         [
-          {"tag_name":"v1.9.5","draft":false,"prerelease":false,"html_url":"https://github.com/x/y/releases/tag/v1.9.5","assets":[]},
+          {"tag_name":"v1.9.5","draft":false,"prerelease":false,"html_url":"https://github.com/worrgenoidiik-ship-it/SmartTimetable/releases/tag/v1.9.5","assets":[]},
           {"tag_name":"android-v2.0.2","draft":false,"prerelease":false,
-           "html_url":"https://github.com/x/y/releases/tag/android-v2.0.2","body":"Проверка обновлений",
-           "assets":[{"browser_download_url":"https://github.com/x/y/releases/download/android-v2.0.2/SmartTimetable-2.0.2.apk"}]},
+           "html_url":"https://github.com/worrgenoidiik-ship-it/SmartTimetable/releases/tag/android-v2.0.2","body":"Проверка обновлений",
+           "assets":[{"browser_download_url":"https://github.com/worrgenoidiik-ship-it/SmartTimetable/releases/download/android-v2.0.2/SmartTimetable-2.0.2.apk"}]},
           {"tag_name":"android-v2.0.10","draft":true,"prerelease":false,"assets":[]},
           {"tag_name":"android-v2.1.0","draft":false,"prerelease":true,"assets":[]},
           {"tag_name":"android-v2.0.1","draft":false,"prerelease":false,"assets":[]}
@@ -22,7 +22,7 @@ class AppUpdatesTest {
     @Test fun picksNewestPublishedAndroidRelease() {
         val release = AppUpdates.latest(json)!!
         assertEquals("2.0.2", release.version)
-        assertEquals("https://github.com/x/y/releases/download/android-v2.0.2/SmartTimetable-2.0.2.apk", release.apkUrl)
+        assertEquals("https://github.com/worrgenoidiik-ship-it/SmartTimetable/releases/download/android-v2.0.2/SmartTimetable-2.0.2.apk", release.apkUrl)
         assertEquals("Проверка обновлений", release.notes)
     }
 
@@ -32,6 +32,21 @@ class AppUpdatesTest {
         val evil = """[{"tag_name":"android-v9.0","draft":false,"prerelease":false,
             "html_url":"https://evil.example/x","assets":[{"browser_download_url":"https://evil.example/a.apk"}]}]"""
         val release = AppUpdates.latest(evil)!!
+        assertNull(release.apkUrl)
+        assertEquals(AppUpdates.RELEASES_PAGE, release.pageUrl)
+    }
+
+    @Test fun apkOnlyFromThisRepositoryAndThisRelease() {
+        val own = "https://github.com/worrgenoidiik-ship-it/SmartTimetable/releases/download/android-v2.0.5/SmartTimetable-2.0.5.apk"
+        assertTrue(AppUpdates.isOwnApk(own, "android-v2.0.5"))
+        assertFalse(AppUpdates.isOwnApk(own, "android-v2.0.4"))
+        assertFalse(AppUpdates.isOwnApk("https://github.com/someone/SmartTimetable/releases/download/android-v2.0.5/a.apk", "android-v2.0.5"))
+        assertFalse(AppUpdates.isOwnApk("https://github.com/worrgenoidiik-ship-it/SmartTimetable/releases/download/android-v2.0.5/../x/a.apk", "android-v2.0.5"))
+        assertFalse(AppUpdates.isOwnApk(own.removeSuffix(".apk") + ".zip", "android-v2.0.5"))
+        val foreign = """[{"tag_name":"android-v9.0","draft":false,"prerelease":false,
+            "html_url":"https://github.com/someone/fake/releases/tag/android-v9.0",
+            "assets":[{"browser_download_url":"https://github.com/someone/fake/releases/download/android-v9.0/a.apk"}]}]"""
+        val release = AppUpdates.latest(foreign)!!
         assertNull(release.apkUrl)
         assertEquals(AppUpdates.RELEASES_PAGE, release.pageUrl)
     }

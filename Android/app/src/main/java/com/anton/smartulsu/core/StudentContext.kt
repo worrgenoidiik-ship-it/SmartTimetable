@@ -27,7 +27,7 @@ class CourseTitle(raw: String) {
             parts += name.substring(open + 2, name.length - 1).split(',').map { PortalParser.clean(it) }.filter { it.isNotEmpty() }
             name = name.substring(0, open)
         }
-        Regex("\\s+([А-ЯЁA-Z]{1,6}-[А-ЯЁA-Z]{1,4}-\\d{2}(?:/\\d+)?)$").find(name)?.let {
+        Regex("\\s+([А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,7}-[А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,3}-\\d{2}(?:/\\d+)?)$").find(name)?.let {
             parts.add(0, it.groupValues[1])
             name = name.substring(0, it.range.first)
         }
@@ -44,20 +44,27 @@ class CourseTitle(raw: String) {
 object StudentGroup {
     fun normalized(value: String) = value.replace('_', '-').replace(" ", "").uppercase()
 
+    /** Most frequent group code in the course titles. Other faculties have small letters too
+     *  («ФКиС-О-23/1», «ЭК-Зу-22/1»): compared without case, shown as the portal writes them. */
     fun detect(courses: List<Course>): String? {
-        val pattern = Regex("([А-ЯЁA-Z]{1,6})[-_]([А-ЯЁA-Z]{1,4})[-_](\\d{2})(?:/(\\d+))?")
+        val pattern = Regex("([А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,7})[-_]([А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,3})[-_](\\d{2})(?:/(\\d+))?")
+        val spelling = mutableMapOf<String, String>()
         return courses.flatMap { course ->
             pattern.findAll(course.title).map { m ->
-                normalized("${m.groupValues[1]}-${m.groupValues[2]}-${m.groupValues[3]}" +
-                    (m.groupValues[4].takeIf { it.isNotEmpty() }?.let { "/$it" } ?: ""))
+                val code = "${m.groupValues[1]}-${m.groupValues[2]}-${m.groupValues[3]}" +
+                    (m.groupValues[4].takeIf { it.isNotEmpty() }?.let { "/$it" } ?: "")
+                normalized(code).also { spelling.putIfAbsent(it, code) }
             }.toList()
-        }.groupingBy { it }.eachCount().maxWithOrNull(compareBy({ it.value }, { it.key }))?.key
+        }.groupingBy { it }.eachCount().maxWithOrNull(compareBy({ it.value }, { it.key }))?.key?.let { spelling[it] }
     }
 
-    fun planApplies(snapshot: PortalSnapshot, manual: ManualSchedule): Boolean {
-        val group = detect(snapshot.courses?.value.orEmpty()) ?: return true
-        return sameGroup(group, manual.plan.group)
-    }
+    /** A plan is shown only to its own group. Group unknown: an imported plan is still the
+     *  student's own, the built-in one is not guessed (other faculties get the portal schedule). */
+    fun planApplies(snapshot: PortalSnapshot, manual: ManualSchedule): Boolean =
+        planApplies(detect(snapshot.courses?.value.orEmpty()), manual.plan.group, manual.imported)
+
+    fun planApplies(group: String?, plan: String, imported: Boolean): Boolean =
+        if (group == null) imported else sameGroup(group, plan)
 
     /** «ИС-О-25/1» and «ИС-О-25» (subgroup unknown) match; «ИС-О-25/1» and «ИС-О-25/10» do not. */
     fun sameGroup(a: String, b: String): Boolean {

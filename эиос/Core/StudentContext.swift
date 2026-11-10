@@ -10,22 +10,32 @@ enum StudentGroup {
     }
 
     /// Most frequent group code in the course titles (they look like «… ИС-О-25/1 (…)»).
+    /// Codes of other faculties have small letters too («ФКиС-О-23/1», «ИСм-О-25/1», «ЭК-Зу-22/1»);
+    /// they are compared without case but shown as the portal writes them.
     static func detect(in courses: [Course]) -> String? {
         var counts: [String: Int] = [:]
+        var spelling: [String: String] = [:]
         for course in courses {
-            for match in course.title.matches(of: #/([А-ЯЁA-Z]{1,6})[-_]([А-ЯЁA-Z]{1,4})[-_](\d{2})(?:/(\d+))?/#) {
+            for match in course.title.matches(of: #/([А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,7})[-_]([А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,3})[-_](\d{2})(?:/(\d+))?/#) {
                 let code = "\(match.1)-\(match.2)-\(match.3)" + (match.4.map { "/\($0)" } ?? "")
-                counts[normalized(code), default: 0] += 1
+                let key = normalized(code)
+                counts[key, default: 0] += 1
+                if spelling[key] == nil { spelling[key] = code }
             }
         }
-        return counts.max { ($0.value, $1.key) < ($1.value, $0.key) }?.key
+        return counts.max { ($0.value, $1.key) < ($1.value, $0.key) }.flatMap { spelling[$0.key] }
     }
 
-    /// The built-in/imported plan belongs to one group; it is used only when the student's
-    /// group matches it or is still unknown.
+    /// A plan belongs to one group and is shown only to that group. When the group is unknown
+    /// (courses not loaded yet, or their titles carry no code) a plan the student imported is
+    /// still theirs, but the built-in one is not guessed: other faculties get the portal schedule.
     static func planApplies(to snapshot: PortalSnapshot) -> Bool {
-        guard let group = detect(in: snapshot.courses?.value ?? []) else { return true }
-        return sameGroup(group, ManualSchedule.group)
+        planApplies(group: detect(in: snapshot.courses?.value ?? []), plan: ManualSchedule.group, imported: ManualSchedule.isImported)
+    }
+
+    static func planApplies(group: String?, plan: String, imported: Bool) -> Bool {
+        guard let group else { return imported }
+        return sameGroup(group, plan)
     }
 
     /// «ИС-О-25/1» and «ИС-О-25» (subgroup unknown) match; «ИС-О-25/1» and «ИС-О-25/10» do not.

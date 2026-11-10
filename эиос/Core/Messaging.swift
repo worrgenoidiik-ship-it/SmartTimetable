@@ -120,7 +120,7 @@ struct CourseTitle: Equatable {
             details = inner.split(separator: ",").map { PortalParser.clean(String($0)) }.filter { !$0.isEmpty }
             name = String(name[..<open.lowerBound])
         }
-        if let group = name.firstMatch(of: #/\s+([А-ЯЁA-Z]{1,6}-[А-ЯЁA-Z]{1,4}-\d{2}(?:/\d+)?)$/#) {
+        if let group = name.firstMatch(of: #/\s+([А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,7}-[А-ЯЁA-Z][А-ЯЁа-яёA-Za-z]{0,3}-\d{2}(?:/\d+)?)$/#) {
             details.insert(String(group.1), at: 0)
             name = String(name[..<group.range.lowerBound])
         }

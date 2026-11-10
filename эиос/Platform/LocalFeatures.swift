@@ -9,7 +9,14 @@ final class AppAuthManager: ObservableObject {
     // Without Face ID the lock screen must not flash before the first authenticate().
     @Published private(set) var isLocked = UserDefaults.standard.bool(forKey: "isFaceIDEnabled")
     @Published private(set) var message: String?
+    /// The app is not in front (app switcher, Control Center, a system alert): with the lock
+    /// turned on its content is hidden at once, before iOS takes the preview picture.
+    @Published private(set) var isCovered = false
     private var authenticating = false
+    func setInFront(_ active: Bool) {
+        let covered = !active && UserDefaults.standard.bool(forKey: "isFaceIDEnabled")
+        if covered != isCovered { isCovered = covered }
+    }
     static var canAuthenticate: Bool {
         LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
     }

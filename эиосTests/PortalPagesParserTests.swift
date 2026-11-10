@@ -115,6 +115,7 @@ final class PortalPagesParserTests: XCTestCase {
             DeadlineItem(id: "1", title: "Тест", course: "", kind: "mod_quiz", whenLabel: "", due: now.addingTimeInterval(3_600), url: nil),
             DeadlineItem(id: "2", title: "Без времени", course: "", kind: "mod_assign", whenLabel: "Скоро", due: nil, url: nil),
         ], fetchedAt: now, sources: [])
+        snapshot.courses = CachedSection(value: [Course(id: "g", title: "Базы данных \(ManualSchedule.group) (3 семестр)", teacher: "", url: URL(string: "https://portal.ulsu.ru/course/view.php?id=1")!)], fetchedAt: Date(), sources: []) // the plan's own group
         let defaults = UserDefaults.standard
         let saved = defaults.object(forKey: PortalConfiguration.portalScheduleKey)
         defer { defaults.set(saved, forKey: PortalConfiguration.portalScheduleKey) }
