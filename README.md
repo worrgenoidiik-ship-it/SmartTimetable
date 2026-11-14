@@ -8,6 +8,15 @@
 
 iOS **1.9.7** (Swift, SwiftUI, iOS 17+) · Android **2.0.5** (Kotlin, Jetpack Compose, Android 7+)
 
+<p align="center">
+  <img src="Docs/screenshots/profile.png" width="19%" alt="Профиль и зачётная книжка">
+  <img src="Docs/screenshots/schedule.png" width="19%" alt="Расписание">
+  <img src="Docs/screenshots/messages.png" width="19%" alt="Сообщения">
+  <img src="Docs/screenshots/deadlines.png" width="19%" alt="Ближайшие сроки">
+  <img src="Docs/screenshots/settings.png" width="19%" alt="Настройки">
+</p>
+<p align="center"><sub>iOS-версия. Имена людей, группа и личные данные на скриншотах размыты.</sub></p>
+
 ---
 
 ## Установка
